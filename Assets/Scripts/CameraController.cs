@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float _minCameraXRotation = 0f;
     [SerializeField] private float _maxCameraXRotation = 15f;
+    [SerializeField] private bool _isLookUpDownInverted = false;
 
     private Transform _playerTransform;
 
@@ -25,15 +26,20 @@ public class CameraController : MonoBehaviour
         float mouseY = Input.GetAxis(Constants.MOUSE_Y);
 
         // Look left and right
-        Vector3 currentPlayerRotation = _playerTransform.rotation.eulerAngles;
+        Vector3 currentPlayerRotation = _playerTransform.localEulerAngles;
         currentPlayerRotation.y += mouseX;
-        Quaternion newPlayerRotation = Quaternion.Euler(currentPlayerRotation);
-        _playerTransform.rotation = newPlayerRotation;
+        _playerTransform.rotation = Quaternion.AngleAxis(currentPlayerRotation.y, Vector3.up);
 
         // Look up and down
-        Vector3 currentCameraRotation = transform.rotation.eulerAngles;
-        currentCameraRotation.x = Mathf.Clamp(currentCameraRotation.x + mouseY, _minCameraXRotation, _maxCameraXRotation);
-        Quaternion newCameraRotation = Quaternion.Euler(currentCameraRotation);
-        transform.rotation = newCameraRotation;
+        Vector3 currentCameraRotation = transform.localEulerAngles;
+        if (_isLookUpDownInverted)
+        {
+            currentCameraRotation.x = Mathf.Clamp(currentCameraRotation.x + mouseY, _minCameraXRotation, _maxCameraXRotation);
+        }
+        else
+        {
+            currentCameraRotation.x = Mathf.Clamp(currentCameraRotation.x - mouseY, _minCameraXRotation, _maxCameraXRotation);
+        }
+        transform.rotation = Quaternion.AngleAxis(currentCameraRotation.x, Vector3.right);
     }
 }
