@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float _jumpHeight = 4f;
 
     [Header("Camera Settings")]
-    [SerializeField] private float _minCameraXRotation = 0f;
-    [SerializeField] private float _maxCameraXRotation = 15f;
+    [SerializeField] private float _minCameraXRotation = 5f;
+    [SerializeField] private float _maxCameraXRotation = 25f;
     [SerializeField] private bool _isLookUpDownInverted = false;
     [SerializeField][Range(0.1f,5f)] private float _mouseSensitivity = 1f;
 
@@ -78,13 +78,21 @@ public class Player : MonoBehaviour
         Vector3 currentCameraRotation = _cameraTransform.localEulerAngles;
         if (_isLookUpDownInverted)
         {
-            currentCameraRotation.x = Mathf.Clamp(currentCameraRotation.x + mouseY, _minCameraXRotation, _maxCameraXRotation);
+            currentCameraRotation.x = Mathf.Clamp(
+                currentCameraRotation.x + mouseY,
+                _minCameraXRotation,
+                _maxCameraXRotation);
         }
         else
         {
-            currentCameraRotation.x = Mathf.Clamp(currentCameraRotation.x - mouseY, _minCameraXRotation, _maxCameraXRotation);
+            currentCameraRotation.x = Mathf.Clamp(
+                currentCameraRotation.x - mouseY,
+                _minCameraXRotation,
+                _maxCameraXRotation);
         }
-        _cameraTransform.localRotation = Quaternion.AngleAxis(currentCameraRotation.x, Vector3.right);
+        _cameraTransform.localRotation = Quaternion.AngleAxis(
+            currentCameraRotation.x,
+            Vector3.right);
     }
 
     private void FixedUpdate()

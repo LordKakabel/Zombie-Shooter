@@ -10,6 +10,7 @@ public static class Constants
     public const string JUMP = "Jump";
     public const string MOUSE_X = "Mouse X";
     public const string MOUSE_Y = "Mouse Y";
+    public const string FIRE_1 = "Fire1";
     #endregion
 
     #region Tags
