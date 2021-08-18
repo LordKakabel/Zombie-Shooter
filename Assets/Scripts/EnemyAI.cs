@@ -55,12 +55,10 @@ public class EnemyAI : MonoBehaviour
 
     private void Attack()
     {
-        Debug.Log("Attack called.");
         if (Time.time > _nextAttack)
         {
             if (_playerHealth != null)
             {
-                Debug.Log("Calling damage.");
                 _playerHealth.Damage();
             }
             _nextAttack = Time.time + _delayBetweenAttacks;
