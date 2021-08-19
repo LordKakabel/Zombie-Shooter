@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
 
     private void CameraController()
     {
+        return;
         // Get input
         float mouseX = Input.GetAxis(Constants.MOUSE_X);
         float mouseY = Input.GetAxis(Constants.MOUSE_Y);
